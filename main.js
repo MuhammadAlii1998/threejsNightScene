@@ -1,338 +1,441 @@
 let camera, scene, renderer, cube,cylinder;
 function init() {	
 	scene = new THREE.Scene();
-    scene.background = new THREE.Color('black');
+    scene.background = new THREE.Color('white');
 	camera = new THREE.PerspectiveCamera(
-		75,
+		85,
 		window.innerWidth / window.innerHeight,
 		0.1,
 		1000
     );
-    
-     //camera.position.set(3,5,-9);
      scene.add(camera);
+
 	// Init renderer
+
 	renderer = new THREE.WebGLRenderer({ antialias: true });
+
 	// Set size (whole window)
+
 	renderer.setSize(window.innerWidth, window.innerHeight);
+
 	// Render to canvas element
+
     document.body.appendChild(renderer.domElement);
+
     //Station
-    const geometry_stn = new THREE.BoxGeometry(25,13,15);
-    const materi_stn = new THREE.MeshLambertMaterial({ color: 'brown' });
-	cub_stn = new THREE.Mesh(geometry_stn, materi_stn);
-    cub_stn.position.x=0;
-    cub_stn.position.y=-8;
-    cub_stn.position.z=-11.5;
-    scene.add(cub_stn);
+    //Center Building Walls
 
-    const geometry_stnf = new THREE.BoxGeometry(17,1,17);
-    const materi_stnf = new THREE.MeshLambertMaterial({ color: 'yellow' });
-	cub_stnf = new THREE.Mesh(geometry_stnf, materi_stnf);
-    cub_stnf.position.x=0;
-    cub_stnf.position.y=-3;
-    cub_stnf.position.z=-6.5;
-    scene.add(cub_stnf);
+    const geometryStationWallCenter = new THREE.BoxGeometry(25,13,15);
+    const materialStationWallCenter = new THREE.MeshLambertMaterial({ color: 'brown' });
+    centerBuildingWall = new THREE.Mesh(geometryStationWallCenter, materialStationWallCenter);
+    centerBuildingWall.position.x=0;
+    centerBuildingWall.position.y=-8;
+    centerBuildingWall.position.z=-11.5;
+    scene.add(centerBuildingWall);
 
-    
+    // Center Building Shade (Dormer)
 
-    const geometry_stnfpl = new THREE.CylinderGeometry( 0.5, 0.5, 9, 50 );
-    const materi_stnfpl = new THREE.MeshLambertMaterial({ color: 'yellow' });
-	cub_stnfpl = new THREE.Mesh(geometry_stnfpl, materi_stnfpl);
-    cub_stnfpl.position.x=-9;
-    cub_stnfpl.position.y=-9;
-    cub_stnfpl.position.z=-3.5;
-    scene.add(cub_stnfpl);
+    const geometryStationShade = new THREE.BoxGeometry(17,1,17);
+    const materialStationShade = new THREE.MeshLambertMaterial({ color: 'yellow' });
+	centerBuildingShade = new THREE.Mesh(geometryStationShade, materialStationShade);
+    centerBuildingShade.position.x=0;
+    centerBuildingShade.position.y=-3;
+    centerBuildingShade.position.z=-6.5;
+    scene.add(centerBuildingShade);
 
-    const geometry_stnfpr = new THREE.CylinderGeometry( 0.5, 0.5, 9, 50 );
-    const materi_stnfpr = new THREE.MeshLambertMaterial({ color: 'yellow' });
-	cub_stnfpr = new THREE.Mesh(geometry_stnfpr, materi_stnfpr);
-    cub_stnfpr.position.x=9;
-    cub_stnfpr.position.y=-9;
-    cub_stnfpr.position.z=-3.5;
-    scene.add(cub_stnfpr)
+    // Center Building Left Pillar
 
-    
+    const geometryCenterBuildingLeftPillar = new THREE.CylinderGeometry( 0.5, 0.5, 9, 50 );
+    const materialCenterBuildingLeftPillar = new THREE.MeshLambertMaterial({ color: 'yellow' });
+	centerBuildingLeftPillar = new THREE.Mesh(geometryCenterBuildingLeftPillar, materialCenterBuildingLeftPillar);
+    centerBuildingLeftPillar.position.x=-9;
+    centerBuildingLeftPillar.position.y=-9;
+    centerBuildingLeftPillar.position.z=-3.5;
+    scene.add(centerBuildingLeftPillar);
 
-    var texture = new THREE.TextureLoader().load("stt.jpg");
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set( 4, 4);
+    // Center Building Right Pillar
 
-    const geom_stn = new THREE.BoxGeometry(15,9,10);
-    const mat_stn = new THREE.MeshLambertMaterial({ color: 'brown' });
-	cub_stnl = new THREE.Mesh(geom_stn, mat_stn);
-    cub_stnl.position.x=-11.5;
-    cub_stnl.position.y=-8;
-    cub_stnl.position.z=-9.5;
-    scene.add(cub_stnl);
+    const geometryCenterBuildingRightPillar = new THREE.CylinderGeometry( 0.5, 0.5, 9, 50 );
+    const materialCenterBuildingRightPillar = new THREE.MeshLambertMaterial({ color: 'yellow' });
+    centerBuildingRightPillar = new THREE.Mesh(geometryCenterBuildingRightPillar, materialCenterBuildingRightPillar);
+    centerBuildingRightPillar.position.x=9;
+    centerBuildingRightPillar.position.y=-9;
+    centerBuildingRightPillar.position.z=-3.5;
+    scene.add(centerBuildingRightPillar)
 
-    var geometry_dl = new THREE.PlaneGeometry( 2.5, 4, 2.5 );
-    var material_dl = new THREE.MeshLambertMaterial( {color: 0xffff00} );
-    var plane = new THREE.Mesh( geometry_dl, material_dl );
-    plane.position.x=-14.5;
-    plane.position.y=-9;
-    plane.position.z=-3.5;
-    scene.add( plane );
+    // Left Building Walls
 
-    const geomet_stn = new THREE.BoxGeometry(15,9,10);
-    const mate_stn = new THREE.MeshLambertMaterial({ color: 'brown' });
-	cub_stnr = new THREE.Mesh(geomet_stn, mate_stn);
-    cub_stnr.position.x=11.5;
-    cub_stnr.position.y=-8;
-    cub_stnr.position.z=-9.5;
-    scene.add(cub_stnr);
-    
-    var geometry_dr = new THREE.PlaneGeometry( 2.5, 4, 2.5 );
-    var material_dr = new THREE.MeshLambertMaterial( {color: 0xffff00} );
-    var plane = new THREE.Mesh( geometry_dr, material_dr );
-    plane.position.x=14.5;
-    plane.position.y=-9;
-    plane.position.z=-3.5;
-    scene.add( plane );
+    const geometryStationWallLeft = new THREE.BoxGeometry(15,9,10);
+    const materialStationWallLeft = new THREE.MeshLambertMaterial({ color: 'brown' });
+	leftBuildingWall = new THREE.Mesh(geometryStationWallLeft, materialStationWallLeft);
+    leftBuildingWall.position.x=-11.5;
+    leftBuildingWall.position.y=-8;
+    leftBuildingWall.position.z=-9.5;
+    scene.add(leftBuildingWall);
 
+    // Left Building Window
 
+    const geometryStationWindowLeft = new THREE.PlaneGeometry( 2.5, 4, 2.5 );
+    const materialStationWindowLeft = new THREE.MeshLambertMaterial( {color: 0xffff00} );
+    leftBuildingWindow = new THREE.Mesh( geometryStationWindowLeft, materialStationWindowLeft );
+    leftBuildingWindow.position.x=-14.5;
+    leftBuildingWindow.position.y=-9;
+    leftBuildingWindow.position.z=-3.5;
+    scene.add(leftBuildingWindow);
 
-	// Engine 1st cabin
-    const geometr = new THREE.BoxGeometry(10,4,5);
-    const materi = new THREE.MeshLambertMaterial({ color: 0xff0000 });
-    cub = new THREE.Mesh(geometr, materi);
-    cub.position.x=0;
-    cub.position.y=-11.5;
-    scene.add(cub);
-    
+    // Right Building Walls
 
+    const geometryStationWallRight = new THREE.BoxGeometry(15,9,10);
+    const materialStationWallRight = new THREE.MeshLambertMaterial({ color: 'brown' });
+    rightBuildingWall = new THREE.Mesh(geometryStationWallRight, materialStationWallRight);
+    rightBuildingWall.position.x=11.5;
+    rightBuildingWall.position.y=-8;
+    rightBuildingWall.position.z=-9.5;
+    scene.add(rightBuildingWall);
+
+    // Right Building Window
+
+    const geometryStationWindowRight = new THREE.PlaneGeometry( 2.5, 4, 2.5 );
+    const materialStationWindowRight = new THREE.MeshLambertMaterial( {color: 0xffff00} );
+    RightBuildingWindow = new THREE.Mesh(geometryStationWindowRight, materialStationWindowRight);
+    RightBuildingWindow.position.x=14.5;
+    RightBuildingWindow.position.y=-9;
+    RightBuildingWindow.position.z=-3.5;
+    scene.add(RightBuildingWindow);
+
+	// Engine front cabin
+
+    const geometryEngineFront = new THREE.BoxGeometry(10,5,5);
+    const materialEngineFront = new THREE.MeshLambertMaterial({ color: 0xff0000 });
+    engineFrontCabin = new THREE.Mesh(geometryEngineFront, materialEngineFront);
+    engineFrontCabin.position.x=60;
+    engineFrontCabin.position.y=-17;
+    scene.add(engineFrontCabin);
   
     // Engine rear cabin
-	const geomet = new THREE.BoxGeometry(5,7,5);
-    const mater = new THREE.MeshLambertMaterial({ color: 0xffffff });
-	cu = new THREE.Mesh(geomet, mater);
-    cu.position.x=7;
-    cu.position.y=-10;
-    scene.add(cu);
-    // Head Light
-     var color_light = 0xFFFFFF;
-     var intensity_light = 1;
-     headlight = new THREE.PointLight(color_light, intensity_light, 5000);
-     headlight.castShadow = true;
-     headlight.position.set(-6, -11, 0);
-     scene.add(headlight);
-     helper = new THREE.PointLightHelper(headlight);
-     scene.add(helper);
-     function updateLight() {
-         helper.update();
-     }
+
+	const geometryEngineRear = new THREE.BoxGeometry(5,9,5);
+    const materialEngineRear = new THREE.MeshLambertMaterial({ color: 0x00ff00 });
+	engineRearCabin = new THREE.Mesh(geometryEngineRear, materialEngineRear);
+    engineRearCabin.position.x=67;
+    engineRearCabin.position.y=-15;
+    scene.add(engineRearCabin);
+
+    // Engine Window(s)
+
+     var geometryEngineWindow = new THREE.BoxGeometry(1.5,1.5,1.5);
+     var materialEngineWindow = new THREE.MeshLambertMaterial( {color: 0x000000} );
+     engineWindow1 = new THREE.Mesh(geometryEngineWindow, materialEngineWindow);
+     engineWindow1.position.x=61;
+     engineWindow1.position.y=-16;
+     engineWindow1.position.z=2;
+     scene.add(engineWindow1);
+
+     engineWindow2 = new THREE.Mesh(geometryEngineWindow, materialEngineWindow);
+     engineWindow2.position.x=63;
+     engineWindow2.position.y=-16;
+     engineWindow2.position.z=2;
+     scene.add(engineWindow2);
+
     // Chimney
-    var shpe = new THREE.CylinderGeometry( 1,1,4, 6 );
-    const materia = new THREE.MeshLambertMaterial( {color: 0x0000ff} );
-    cylinder = new THREE.Mesh( shpe, materia );
-    cylinder.position.x=-2;
-    cylinder.position.y=-8;
-    scene.add(cylinder);
+
+    var geometryChimney = new THREE.CylinderGeometry( 1,1,4, 6 );
+    const materialChimney = new THREE.MeshLambertMaterial( {color: 0x0000ff} );
+    chimney = new THREE.Mesh( geometryChimney, materialChimney);
+    chimney.position.x=67;
+    chimney.position.y=-8;
+    scene.add(chimney);
+
     //  Boggy # 1
-    var geometry = new THREE.BoxGeometry(5,4,5);
-    const material = new THREE.MeshLambertMaterial({ color: 0x590e667 });
-	cube = new THREE.Mesh(geometry, material);
-    cube.position.x=12;
-    cube.position.y=-11.5;
-    scene.add(cube);
+
+    var geometryBoggy1 = new THREE.BoxGeometry(5,4,5);
+    const materialBoggy1 = new THREE.MeshLambertMaterial({ color: 0x6a329f });
+	boggy1 = new THREE.Mesh(geometryBoggy1, materialBoggy1);
+    boggy1.position.x=72;
+    boggy1.position.y=-17.5;
+    scene.add(boggy1);
+
     //  Boggy # 2
-    var geome= new THREE.BoxGeometry(5,4,5);
-    const mate = new THREE.MeshLambertMaterial({ color: 0xf3294b });
-	c = new THREE.Mesh(geome, mate);
-    c.position.x=17;
-    c.position.y=-11.5;
-    scene.add(c);
+
+    var geometryBoggy2 = new THREE.BoxGeometry(5,4,5);
+    const materialBoggy2 = new THREE.MeshLambertMaterial({ color: 0xf3294b });
+	boggy2 = new THREE.Mesh(geometryBoggy2, materialBoggy2);
+    boggy2.position.x=77;
+    boggy2.position.y=-17.5;
+    scene.add(boggy2);
+
     //  Boggy # 3
-    var geo_bogg_3= new THREE.BoxGeometry(5,4,5);
-    const mate_bogg_3 = new THREE.MeshLambertMaterial({ color: 0xfd5f00 });
-	cube_bogg_3 = new THREE.Mesh(geo_bogg_3, mate_bogg_3);
-    cube_bogg_3.position.x=22;
-    cube_bogg_3.position.y=-11.5;
-    scene.add(cube_bogg_3);
+
+    var geometryBoggy3 = new THREE.BoxGeometry(5,4,5);
+    const materialBoggy3 = new THREE.MeshLambertMaterial({ color: 0xfd5f00 });
+	boggy3 = new THREE.Mesh(geometryBoggy3, materialBoggy3);
+    boggy3.position.x=82;
+    boggy3.position.y=-17.5;
+    scene.add(boggy3);
+
 	//  Boggy # 4
-    var geo_bogg_4= new THREE.BoxGeometry(5,4,5);
-    const mate_bogg_4 = new THREE.MeshLambertMaterial({ color: 0x20b2aa});
-	cube_bogg_4 = new THREE.Mesh(geo_bogg_4, mate_bogg_4);
-    cube_bogg_4.position.x=27;
-    cube_bogg_4.position.y=-11.5;
-    scene.add(cube_bogg_4);
+
+    var geometryBoggy4 = new THREE.BoxGeometry(5,4,5);
+    const materialBoggy4 = new THREE.MeshLambertMaterial({ color: 0x20b2aa});
+	boggy4 = new THREE.Mesh(geometryBoggy4, materialBoggy4);
+    boggy4.position.x=87;
+    boggy4.position.y=-17.5;
+    scene.add(boggy4);
+
     //  Boggy # 5
-    var geo_bogg_5= new THREE.BoxGeometry(5,4,5);
-    const mate_bogg_5 = new THREE.MeshLambertMaterial({ color: 0xff618c });
-	cube_bogg_5 = new THREE.Mesh(geo_bogg_5, mate_bogg_5);
-    cube_bogg_5.position.x=32;
-    cube_bogg_5.position.y=-11.5;
-    scene.add(cube_bogg_5);
+
+    var geometryBoggy5  = new THREE.BoxGeometry(5,4,5);
+    const materialBoggy5 = new THREE.MeshLambertMaterial({ color: 0xff618c });
+	boggy5 = new THREE.Mesh(geometryBoggy5, materialBoggy5);
+    boggy5.position.x=92;
+    boggy5.position.y=-17.5;
+    scene.add(boggy5);
+
     //  Boggy # 6
-    var geo_bogg_6= new THREE.BoxGeometry(5,4,5);
-    const mate_bogg_6 = new THREE.MeshLambertMaterial({ color: 0xbada55 });
-	cube_bogg_6 = new THREE.Mesh(geo_bogg_6, mate_bogg_6);
-    cube_bogg_6.position.x=37;
-    cube_bogg_6.position.y=-11.5;
-    scene.add(cube_bogg_6);
+
+    var geometryBoggy6 = new THREE.BoxGeometry(5,4,5);
+    const materialBoggy6 = new THREE.MeshLambertMaterial({ color: 0xbada55 });
+	boggy6 = new THREE.Mesh(geometryBoggy6, materialBoggy6);
+    boggy6.position.x=97;
+    boggy6.position.y=-17.5;
+    scene.add(boggy6);
+
+    //  Boggy # 7
+
+    var geometryBoggy7 = new THREE.BoxGeometry(5,4,5);
+    const materialBoggy7 = new THREE.MeshLambertMaterial({ color: 0x660624 });
+    boggy7 = new THREE.Mesh(geometryBoggy7, materialBoggy7);
+    boggy7.position.x=102;
+    boggy7.position.y=-17.5;
+    scene.add(boggy7);
+
+    //  Boggy # 8
+
+    var geometryBoggy8 = new THREE.BoxGeometry(5,4,5);
+    const materialBoggy8 = new THREE.MeshLambertMaterial({ color: 0xa1035f });
+    boggy8 = new THREE.Mesh(geometryBoggy8, materialBoggy8);
+    boggy8.position.x=107;
+    boggy8.position.y=-17.5;
+    scene.add(boggy8);
+
     //  Full Moon
-    var geometry_moon = new THREE.SphereGeometry( 4, 30 ,30 );
-    var material_moon = new THREE.MeshLambertMaterial( { color: 0xffea6b } );
-    var circle_moon = new THREE.Mesh( geometry_moon, material_moon);
-    circle_moon.position.x=7;
-    circle_moon.position.y=15;
-    scene.add( circle_moon );
-    // // Light of Moon
-   var light = new THREE.HemisphereLight( 0xffffbb, 0x080820,0.4 );
-   light.position.set(0,20,0);
-  scene.add( light );
-   //var light = new THREE.AmbientLight( 0xffffff,0.5 ); // soft white light
-   //scene.add( light);
-    
-   
 
-   var light = new THREE.DirectionalLight(0xffffff, 0.7,999 );
-   light.target=cube;
-   scene.add( light );
-   
-   
-    
+    var geometryMoon = new THREE.SphereGeometry( 4, 30 ,30 );
+    var materialMoon = new THREE.MeshLambertMaterial( { color: 0xffea6b } );
+    moon = new THREE.Mesh( geometryMoon, materialMoon);
+    moon.position.x=7;
+    moon.position.y=15;
+    scene.add(moon);
+
+    // Light(s) of Moon
+
+    var moonLight1 = new THREE.HemisphereLight( 0xf1ff25, 0xfafa56,0.9 );
+    moonLight1.position.set(0,0,0);
+    scene.add(moonLight1);
+    var moonLight2 = new THREE.DirectionalLight(0xf78f00, 0.9);
+    moonLight2.target = moon;
+    scene.add(moonLight2);
+    var light = new THREE.AmbientLight( 0xffffff,0.05 ); // soft white light
+    scene.add( light);
+
+    // Light(s) of Station
+
+    var stationLight1 = new THREE.DirectionalLight(0xffffff, 0.6);
+    stationLight1.target = centerBuildingWall;
+    scene.add(stationLight1);
+    var stationLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
+    stationLight2.target = leftBuildingWall;
+    scene.add(stationLight2);
+    var stationLight3 = new THREE.DirectionalLight(0xffffff, 0.4);
+    stationLight3.target = rightBuildingWall;
+    scene.add(stationLight3);
+
     //  Clouds
-    // Cloud_1_right
-    var x = 0, y = 0;
-    var cloudShape = new THREE.Shape();
-    cloudShape.moveTo( x+5, y+5);
-    cloudShape.bezierCurveTo( x + 2.2, y+3.6, x+2.2,y+2.7,x+3.1,y+2.7 );
-    cloudShape.bezierCurveTo( x + 4.2, y+2.6, x+5.1,y+2.6,x+6,y+3.5 );
-    cloudShape.bezierCurveTo( x + 6.3, y+4.5, x+5.6,y+5.5,x+4.7,y+5.5 );
-    cloudShape.bezierCurveTo( x + 3.3, y+5.3, x+4.2,y+2.7,x+1.85,y+3.0 );
-    var geometry_cloud = new THREE.ShapeGeometry( cloudShape );
-    var material_cloud = new THREE.MeshLambertMaterial( { color: 0xe4e9eb } );
-    var mesh_cloud = new THREE.Mesh( geometry_cloud, material_cloud ) ;
-    mesh_cloud.position.x=7.7;
-    mesh_cloud.position.y=8;
-    scene.add( mesh_cloud );
+    // Cloud-1 (right side)
+
+    let x = 0, y = 0;
+    let cloudShapeRight = new THREE.Shape();
+    cloudShapeRight.moveTo( x+5, y+5);
+    cloudShapeRight.bezierCurveTo( x + 2.2, y+3.6, x+2.2,y+2.7,x+3.1,y+2.7 );
+    cloudShapeRight.bezierCurveTo( x + 4.2, y+2.6, x+5.1,y+2.6,x+6,y+3.5 );
+    cloudShapeRight.bezierCurveTo( x + 6.3, y+4.5, x+5.6,y+5.5,x+4.7,y+5.5 );
+    cloudShapeRight.bezierCurveTo( x + 3.3, y+5.3, x+4.2,y+2.7,x+1.85,y+3.0 );
+    var geometryRightCloud = new THREE.ShapeGeometry(cloudShapeRight);
+    var materialCloud = new THREE.MeshLambertMaterial( { color: 0x5b5b5b } );
+    var cloudRight = new THREE.Mesh( geometryRightCloud, materialCloud ) ;
+    cloudRight.position.x=7.7;
+    cloudRight.position.y=8;
+    scene.add(cloudRight);
+
+
     // Cloud_2_left
+
     var x1 = 0, y1 = 0;
-    var cloudShape_left = new THREE.Shape(); 
-    cloudShape_left.moveTo( x1+5, y1+5); 
-    cloudShape_left.bezierCurveTo( x1 + 2.2, y1+3.6, x1+2.2,y1+2.7,x1+3.1,y1+2.7 );
-    cloudShape_left.bezierCurveTo( x1 + 4.2, y1+2.6, x1+5.1,y1+2.6,x1+6,y1+3.5 );
-    cloudShape_left.bezierCurveTo( x1 + 6.3, y1+4.5, x1+5.6,y1+5.5,x1+4.7,y1+5.5 );
-    cloudShape_left.bezierCurveTo( x1 + 3.3, y1+5.3, x1+4.2,y1+2.7,x1+1.85,y1+3.0 );
-    cloudShape_left.bezierCurveTo( x1 + 6.7, y1+5.5, x1+5.9,y1+5.8,x1+4.9,y1+5.8 );
-    cloudShape_left.bezierCurveTo( x1 + 3.9, y1+5.8, x1+4.7,y1+2.9,x1+1.97,y1+3.8 );
-    var geometry_left_cloud= new THREE.ShapeGeometry(cloudShape_left);
-    var mesh_cloud_left= new THREE.Mesh(geometry_left_cloud, material_cloud);
-    mesh_cloud_left.position.x=-2.9;
-    mesh_cloud_left.position.y=11;
-    scene.add( mesh_cloud_left );
+    var cloudShapeLeft = new THREE.Shape();
+    cloudShapeLeft.moveTo( x1+5, y1+5);
+    cloudShapeLeft.bezierCurveTo( x1 + 2.2, y1+3.6, x1+2.2,y1+2.7,x1+3.1,y1+2.7 );
+    cloudShapeLeft.bezierCurveTo( x1 + 4.2, y1+2.6, x1+5.1,y1+2.6,x1+6,y1+3.5 );
+    cloudShapeLeft.bezierCurveTo( x1 + 6.3, y1+4.5, x1+5.6,y1+5.5,x1+4.7,y1+5.5 );
+    cloudShapeLeft.bezierCurveTo( x1 + 3.3, y1+5.3, x1+4.2,y1+2.7,x1+1.85,y1+3.0 );
+    cloudShapeLeft.bezierCurveTo( x1 + 6.7, y1+5.5, x1+5.9,y1+5.8,x1+4.9,y1+5.8 );
+    cloudShapeLeft.bezierCurveTo( x1 + 3.9, y1+5.8, x1+4.7,y1+2.9,x1+1.97,y1+3.8 );
+    var geometryLeftCloud = new THREE.ShapeGeometry(cloudShapeLeft);
+    var cloudLeft= new THREE.Mesh(geometryLeftCloud, materialCloud);
+    cloudLeft.position.x=-2.9;
+    cloudLeft.position.y=11;
+    scene.add(cloudLeft);
+
     //  Smoke
+
     var x1 = 0, y1 = 0;
-    var smokeShape = new THREE.Shape();
-    smokeShape.moveTo( x1+2 , y1+2 );
-    smokeShape.bezierCurveTo( x1 + 3.5, y1 + 3.5, x1+4,y1,x1,y1 );
-    var geometry_smoke = new THREE.ShapeGeometry( smokeShape );
-    var material_smoke = new THREE.MeshLambertMaterial( { color: 0x89b6cf } );
-    mesh_smoke = new THREE.Mesh( geometry_smoke, material_smoke ) ;
-    mesh_smoke.position.x=-2;
-    mesh_smoke.position.y=-5;
-    mesh_smoke.position.z=4;
-    scene.add( mesh_smoke );
-    var x2 = 0, y2 = 0;
     var smokeShape1 = new THREE.Shape();
-    smokeShape1.moveTo( x2+2 , y2+2 );
-    smokeShape1.bezierCurveTo( x2 + 3.5, y2 + 3.5, x2+4,y2,x2,y2 );
-    var geometry_smoke1 = new THREE.ShapeGeometry( smokeShape1 );
-    var material_smoke1 = new THREE.MeshLambertMaterial( { color: 0x89b6cf } );
-    mesh_smoke1 = new THREE.Mesh( geometry_smoke1, material_smoke1 ) ;
-    mesh_smoke1.position.x=3;
-    mesh_smoke1.position.y=-2;
-    scene.add( mesh_smoke1 );
+    smokeShape1.moveTo( x1+2 , y1+2 );
+    smokeShape1.bezierCurveTo( x1 + 3.5, y1 + 3.5, x1+4,y1,x1,y1 );
+    var geometrySmoke1 = new THREE.ShapeGeometry( smokeShape1 );
+    var materialSmoke1 = new THREE.MeshLambertMaterial( { color: 0x5b5b5b } );
+    smoke1 = new THREE.Mesh( geometrySmoke1, materialSmoke1 ) ;
+    smoke1.position.x=-2;
+    smoke1.position.y=-5;
+    smoke1.position.z=4;
+    scene.add(smoke1);
+
+    var x2 = 0, y2 = 0;
+    var smokeShape2 = new THREE.Shape();
+    smokeShape2.moveTo( x2+2 , y2+2 );
+    smokeShape2.bezierCurveTo( x2 + 3.5, y2 + 3.5, x2+4,y2,x2,y2 );
+    var geometrySmoke2 = new THREE.ShapeGeometry( smokeShape2 );
+    var materialSmoke2 = new THREE.MeshLambertMaterial( { color: 0x5b5b5b } );
+    smoke2 = new THREE.Mesh( geometrySmoke2, materialSmoke2 ) ;
+    smoke2.position.x=3;
+    smoke2.position.y=-2;
+    scene.add(smoke2);
+
     //  Wheel
-    var geometry_wheel_1 = new THREE.CircleGeometry( 1, 15 );
-    var material_wheel_1 = new THREE.MeshLambertMaterial( {color: 0x6897bb} );
-    wheel_1 = new THREE.Mesh( geometry_wheel_1, material_wheel_1 );
-    wheel_1.position.x=-3.5;
-    wheel_1.position.y=-15.2;
-    scene.add(wheel_1);
-    var material_wheel_2 = new THREE.MeshLambertMaterial( {color: 0x755e48} );
-    wheel_2 = new THREE.Mesh( geometry_wheel_1, material_wheel_2 );
-    wheel_2.position.x= -3;
-    wheel_2.position.y=-15.2;
-    scene.add( wheel_2 );
-    wheel_3 = new THREE.Mesh( geometry_wheel_1, material_wheel_1 );
-    wheel_3.position.x=6;
-    wheel_3.position.y=-15.2;
-    scene.add(wheel_3);
-    wheel_4 = new THREE.Mesh( geometry_wheel_1, material_wheel_2 );
-    wheel_4.position.x= 7;
-    wheel_4.position.y=-15.2;
-    scene.add( wheel_4 );
-    wheel_5=new THREE.Mesh(geometry_wheel_1,material_wheel_2);
-    wheel_5.position.x=9;
-    wheel_5.position.y=-15.2;
-    scene.add(wheel_5); 
-    wheel_6=new THREE.Mesh(geometry_wheel_1,material_wheel_2);
-    wheel_6.position.x=13;
-    wheel_6.position.y=-15.2;
-    scene.add(wheel_6); 
-    wheel_7=new THREE.Mesh(geometry_wheel_1,material_wheel_2);
-    wheel_7.position.x=18;
-    wheel_7.position.y=-15.2;
-    scene.add(wheel_7); 
-    wheel_8=new THREE.Mesh(geometry_wheel_1,material_wheel_2);
-    wheel_8.position.x=23;
-    wheel_8.position.y=-15.2;
-    scene.add(wheel_8); 
-    wheel_9=new THREE.Mesh(geometry_wheel_1,material_wheel_2);
-    wheel_9.position.x=28;
-    wheel_9.position.y=-15.2;
-    scene.add(wheel_9);
-    wheel_10=new THREE.Mesh(geometry_wheel_1,material_wheel_2);
-    wheel_10.position.x=32;
-    wheel_10.position.y=-15.2;
-    scene.add(wheel_10); 
-    wheel_11=new THREE.Mesh(geometry_wheel_1,material_wheel_2);
-    wheel_11.position.x=37;
-    wheel_11.position.y=-15.2;
-    scene.add(wheel_11); 
-    //  Track 
-    //  
-    camera.position.z = 33 ; 
-    camera.position.x = 0 ;
+
+    var geometryWheel = new THREE.CircleGeometry( 1, 30 );
+    var materialWheel = new THREE.MeshLambertMaterial( {color: 0x000000} );
+    wheel1 = new THREE.Mesh(geometryWheel, materialWheel);
+    wheel1.position.x=61.7;
+    wheel1.position.y=-22.3;
+    scene.add(wheel1);
+
+    wheel2 = new THREE.Mesh(geometryWheel, materialWheel);
+    wheel2.position.x= 61.7;
+    wheel2.position.y=-22.3;
+    wheel2.position.z=-5;
+    scene.add(wheel2);
+
+    wheel3 = new THREE.Mesh(geometryWheel, materialWheel);
+    wheel3.position.x=69;
+    wheel3.position.y=-22.3;
+    scene.add(wheel3);
+
+    wheel4 = new THREE.Mesh(geometryWheel, materialWheel);
+    wheel4.position.x= 75;
+    wheel4.position.y=-22.3;
+    scene.add( wheel4 );
+
+    wheel5=new THREE.Mesh(geometryWheel, materialWheel);
+    wheel5.position.x=80.5;
+    wheel5.position.y=-22.3;
+    scene.add(wheel5);
+
+    wheel6=new THREE.Mesh(geometryWheel, materialWheel);
+    wheel6.position.x=86;
+    wheel6.position.y=-22.3;
+    scene.add(wheel6);
+
+    wheel7=new THREE.Mesh(geometryWheel, materialWheel);
+    wheel7.position.x=91.5;
+    wheel7.position.y=-22.3;
+    scene.add(wheel7);
+
+    wheel8=new THREE.Mesh(geometryWheel, materialWheel);
+    wheel8.position.x=97;
+    wheel8.position.y=-22.3;
+    scene.add(wheel8);
+
+    wheel9=new THREE.Mesh(geometryWheel, materialWheel);
+    wheel9.position.x=102.5;
+    wheel9.position.y=-22.3;
+    scene.add(wheel9);
+
+    wheel10=new THREE.Mesh(geometryWheel, materialWheel);
+    wheel10.position.x=108;
+    wheel10.position.y=-22.3;
+    scene.add(wheel10);
+
+    wheel11=new THREE.Mesh(geometryWheel, materialWheel);
+    wheel11.position.x=113.5;
+    wheel11.position.y=-22.3;
+    scene.add(wheel11);
+
+    wheel12=new THREE.Mesh(geometryWheel, materialWheel);
+    wheel12.position.x=116.5;
+    wheel12.position.y=-22.3;
+    scene.add(wheel12);
+
+    //  Track
+
+    const materialLine = new THREE.LineDashedMaterial( {
+        color: 0x000000,
+        linewidth: 5,
+        scale: 1,
+        dashSize: 10,
+        gapSize: 5,
+    } );
+
+    const points1 = [];
+    points1.push( new THREE.Vector3( - 80, -23.5, 0 ) );
+    points1.push( new THREE.Vector3( 70, -23.5, 0 ) );
+    const geometryLine1 = new THREE.BufferGeometry().setFromPoints( points1 );
+    const line1 = new THREE.Line( geometryLine1, materialLine );
+    scene.add(line1);
+    
+
+    // Camera Position
+
+    camera.position.z = 33 ;
+    camera.position.x = -4 ;
     camera.position.y = 3;
-	// 
+
 }
+
 // Draw the scene every time the screen is refreshed
+
 function animate() {
-    requestAnimationFrame(animate);
-        cub.translateX(-0.35);
-        cu.translateX(-0.35);
-        headlight.translateX(-4);
-        helper.translateX(-4);
-        cylinder.translateX(-0.35);
-        cube.translateX(-0.35);
-        c.translateX(-0.35);
-        cube_bogg_3.translateX(-0.35);
-        cube_bogg_4.translateX(-0.35);
-        cube_bogg_5.translateX(-0.35);
-        cube_bogg_6.translateX(-0.35);
-        mesh_smoke.translateX(-0.15);
-        mesh_smoke.translateY(0.1);
-        mesh_smoke.translateZ(-0.15);
-        mesh_smoke1.translateX(-0.15);
-        mesh_smoke1.translateY(0.1);
-        mesh_smoke1.translateZ(-0.15);
-        wheel_1.translateX(-0.35);
-        wheel_2.translateX(-0.35);
-        wheel_3.translateX(-0.35);
-        wheel_4.translateX(-0.35);
-        wheel_5.translateX(-0.35);
-        wheel_6.translateX(-0.35);
-        wheel_7.translateX(-0.35);
-        wheel_8.translateX(-0.35);
-        wheel_9.translateX(-0.35);
-        wheel_10.translateX(-0.35);
-        wheel_11.translateX(-0.35);
-
-
+        requestAnimationFrame(animate);
+        engineFrontCabin.translateX(-0.15);
+        engineRearCabin.translateX(-0.15);
+        chimney.translateX(-0.15);
+        boggy1.translateX(-0.15);
+        boggy2.translateX(-0.15);
+        boggy3.translateX(-0.15);
+        boggy4.translateX(-0.15);
+        boggy5.translateX(-0.15);
+        boggy6.translateX(-0.15);
+        boggy7.translateX(-0.15);
+        boggy8.translateX(-0.15);
+        smoke1.translateX(-0.05);
+        smoke1.translateY(0.05);
+        smoke1.translateZ(-0.05);
+        smoke2.translateX(-0.05);
+        smoke2.translateY(0.05);
+        smoke2.translateZ(-0.1);
+        wheel1.translateX(-0.165);
+        wheel2.translateX(-0.165);
+        wheel3.translateX(-0.165);
+        wheel4.translateX(-0.165);
+        wheel5.translateX(-0.165);
+        wheel6.translateX(-0.165);
+        wheel7.translateX(-0.165);
+        wheel8.translateX(-0.165);
+        wheel9.translateX(-0.165);
+        wheel10.translateX(-0.165);
+        wheel11.translateX(-0.165);
+        wheel12.translateX(-0.16);
+        engineWindow1.translateX(-0.15);
+        engineWindow2.translateX(-0.15);
       
     const render=function(){
 	requestAnimationFrame(render)
