@@ -290,31 +290,6 @@ function init() {
     smoke2.position.z=3;
     scene.add(smoke2);
 
-        // var x1 = 0, y1 = 0;
-        // var smokeShape1 = new THREE.Shape();
-        // smokeShape1.moveTo(x1 + 2, y1 + 2);
-        // smokeShape1.bezierCurveTo(x1 + 3.5, y1 + 3.5, x1 + 4, y1, x1, y1);
-        // var geometrySmoke1 = new THREE.ShapeGeometry(smokeShape1);
-        // var materialSmoke1 = new THREE.MeshLambertMaterial({color: 0x2B2727});
-        // smoke1 = new THREE.Mesh(geometrySmoke1, materialSmoke1);
-        // smoke1.position.x = -2;
-        // smoke1.position.y = -5;
-        // smoke1.position.z = 4;
-        // scene.add(smoke1);
-
-
-        // var x2 = 0, y2 = 0;
-        // var smokeShape2 = new THREE.Shape();
-        // smokeShape2.moveTo(x2 + 2, y2 + 2);
-        // smokeShape2.bezierCurveTo(x2 + 3.5, y2 + 3.5, x2 + 4, y2, x2, y2);
-        // var geometrySmoke2 = new THREE.ShapeGeometry(smokeShape2);
-        // var materialSmoke2 = new THREE.MeshLambertMaterial({color: 0x2B2727});
-        // smoke2 = new THREE.Mesh(geometrySmoke2, materialSmoke2);
-        // smoke2.position.x = 3;
-        // smoke2.position.y = -2;
-        // smoke2.position.z = 4;
-        // scene.add(smoke2);
-
     //  Wheel
 
     var geometryWheel = new THREE.CircleGeometry( 1, 30 );
@@ -744,53 +719,59 @@ function init() {
 
 function animate() {
         requestAnimationFrame(animate);
-        engineFrontCabin.translateX(-1);
-        engineRearCabin.translateX(-1);
-        chimney.translateX(-1);
-        boggy1.translateX(-1);
-        boggy2.translateX(-1);
-        boggy3.translateX(-1);
-        boggy4.translateX(-1);
-        boggy5.translateX(-1);
-        boggy6.translateX(-1);
-        boggy7.translateX(-1);
-        boggy8.translateX(-1);
-        smoke1.translateX(-0.9);
-        smoke1.translateY(-0.2);
+        engineFrontCabin.translateX(-0.5);
+        engineRearCabin.translateX(-0.5);
+        chimney.translateX(-0.5);
+        boggy1.translateX(-0.5);
+        boggy2.translateX(-0.5);
+        boggy3.translateX(-0.5);
+        boggy4.translateX(-0.5);
+        boggy5.translateX(-0.5);
+        boggy6.translateX(-0.5);
+        boggy7.translateX(-0.5);
+        boggy8.translateX(-0.5);
+        smoke1.translateX(-0.46);
+        smoke1.translateY(-0.01);
         smoke1.translateZ(-0.015);
-        smoke1.rotateX(0.15);
+        smoke1.rotateX(0.14);
         smoke1.rotateY(-0.005);
         smoke1.rotateZ(-0.001);
-        smoke2.translateX(-0.9);
-        smoke2.translateY(0.2);
+        smoke2.translateX(-0.47);
+        smoke2.translateY(0.23);
         smoke2.translateZ(-0.01);
         smoke2.rotateX(-0.15);
-        wheel1.translateX(-1.1);
-        wheel2.translateX(-1.1);
-        wheel3.translateX(-1.1);
-        wheel4.translateX(-1.1);
-        wheel5.translateX(-1.1);
-        wheel6.translateX(-1.1);
-        wheel7.translateX(-1.1);
-        wheel8.translateX(-1.1);
-        wheel9.translateX(-1.1);
-        wheel10.translateX(-1.1);
-        wheel11.translateX(-1.1);
-        wheel12.translateX(-1.1);
-        wheel13.translateX(-1.1);
-        engineWindow1.translateX(-1);
-        engineWindow2.translateX(-1);
-        sun.translateX(-0.5);
-        cloud1.translateX(0.6);
+        wheel1.translateX(-0.55);
+        wheel2.translateX(-0.55);
+        wheel3.translateX(-0.55);
+        wheel4.translateX(-0.55);
+        wheel5.translateX(-0.55);
+        wheel6.translateX(-0.55);
+        wheel7.translateX(-0.55);
+        wheel8.translateX(-0.55);
+        wheel9.translateX(-0.55);
+        wheel10.translateX(-0.55);
+        wheel11.translateX(-0.55);
+        wheel12.translateX(-0.55);
+        wheel13.translateX(-0.55);
+        engineWindow1.translateX(-0.5);
+        engineWindow2.translateX(-0.5);
+        sun.translateX(-0.05);
+        cloud1.translateX(0.1);
+        cloud2.translateX(0.11);
 
-        cloud2.translateX(0.7);
-      
-    const render=function(){
-	requestAnimationFrame(render)
-	renderer.render(scene, camera);
-}
 render();
 }
+var renderCalls = [];
+function render(){
+    renderCalls.forEach((callback) => {
+        callback();
+    });
+
+}
+function renderScene(){
+    renderer.render(scene, camera);
+}
+renderCalls.push(renderScene);
 function onWindowResize() {
 	// Camera frustum aspect ratio
 	camera.aspect = window.innerWidth / window.innerHeight;
